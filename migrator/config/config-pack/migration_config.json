@@ -1,0 +1,31 @@
+{
+    "source": {
+        "type": "hubspot_api",
+        "api_key": "${HUBSPOT_SOURCE_API_KEY}"
+    },
+    "target": {
+        "type": "hubspot_api",
+        "api_key": "${HUBSPOT_TARGET_API_KEY}"
+    },
+    "objects": {
+        "contacts": {
+            "config_path": "contacts",
+            "batch_size": 100
+        },
+        "companies": {
+            "config_path": "companies",
+            "batch_size": 50
+        }
+    },
+    "execution": {
+        "retry": {
+            "max_attempts": 3,
+            "delay_seconds": 5
+        },
+        "checkpoint_frequency": 1000
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/migration.log"
+    }
+}

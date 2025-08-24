@@ -1,0 +1,6 @@
+source_column,target_column
+firstname,firstname
+lastname,lastname
+email,email
+phone,phone
+address,address

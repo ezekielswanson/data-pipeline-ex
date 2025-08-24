@@ -1,0 +1,44 @@
+[project]
+name = "migrator"
+version = "0.0.1"
+description = "Python package for migrating data between HubSpot portals"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.1.8",
+    "pandas>=2.2.3",
+    "pytest>=8.3.4",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+migrator = "migrator.cli.commands:cli"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+]
+addopts = """
+    -v
+    -ra
+    --strict-markers
+    --cov=migrator
+    --cov-report=html:test_reports/coverage
+    --cov-report=xml:test_reports/coverage/coverage.xml
+    --html=test_reports/test_results/report.html
+    --json-report
+    --json-report-file=test_reports/test_results/report.json
+"""
+
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-html>=4.1.1",
+    "pytest-json-report>=1.5.0",
+    "responses>=0.25.0"
+]

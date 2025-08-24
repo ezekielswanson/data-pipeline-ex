@@ -1,0 +1,11 @@
+FROM python:3.13-windowsservercore-ltsc2022
+WORKDIR C:\\app
+
+# Install dependencies using python -m
+RUN python -m pip install --upgrade pip
+RUN python -m pip install uv
+
+COPY pyproject.toml README.md ./
+COPY src/ ./src/
+RUN python -m uv pip install --system .
+ENTRYPOINT ["python", "-m", "migrator"]

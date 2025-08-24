@@ -1,0 +1,60 @@
+{
+    "transformations": {
+        "functions": {
+            "clean_phone": {
+                "type": "function",
+                "method": "transform.phone.format_e164"
+            },
+            "clean_email": {
+                "type": "function",
+                "method": "transform.email.normalize"
+            },
+            "to_lowercase": {
+                "type": "function",
+                "method": "str.lower"
+            },
+            "to_date": {
+                "type": "function",
+                "method": "pd.to_datetime",
+                "args": {
+                    "format": "%Y-%m-%d"
+                }
+            }
+        },
+        "mappings": {
+            "lead_status": {
+                "New": "Open",
+                "In Progress": "Working",
+                "Qualified": "Sales Ready",
+                "Unqualified": "Closed Lost",
+                "*": "Unknown"
+            }
+        }
+    },
+    "columns": {
+        "email": [
+            {
+                "ref": "to_lowercase"
+            },
+            {
+                "ref": "clean_email"
+            }
+        ],
+        "phone": [
+            {
+                "ref": "clean_phone"
+            }
+        ],
+        "lead_status": [
+            {
+                "type": "mapping",
+                "ref": "lead_status"
+            }
+        ],
+        "created_date": [
+            {
+                "ref": "to_date"
+            }
+        ]
+    }
+}
